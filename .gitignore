@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node / frontend
+node_modules/
+
+# Env files (secrets)
+.env
+
+# OS/editor noise
+.DS_Store
+.vscode/
