@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tirana Listings — Starter Demo</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+
+  <body>
+    <header class="container">
+      <h1>Tirana Listings</h1>
+      <p class="muted">
+        Starter web demo (browse → open a listing).
+      </p>
+    </header>
+
+    <main class="container">
+      <section class="panel">
+        <h2>Filters (optional)</h2>
+        <form id="filters">
+          <div class="row">
+            <label>
+              Search address
+              <input id="q" name="q" type="text" placeholder="e.g. Kodra e Diellit" />
+            </label>
+
+            <label>
+              Limit
+              <input id="limit" name="limit" type="number" min="1" max="100" value="20" />
+            </label>
+
+            <button type="submit">Apply</button>
+          </div>
+          <p class="muted small">API: <span id="apiBaseText"></span></p>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>Results</h2>
+        <div id="status" class="muted small">Loading...</div>
+        <div id="listings" class="grid"></div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

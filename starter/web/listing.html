@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Listing Details — Starter Demo</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+
+  <body>
+    <header class="container">
+      <a class="back" href="./index.html">← Back to listings</a>
+      <h1>Listing details</h1>
+      <p class="muted small">API: <span id="apiBaseText"></span></p>
+    </header>
+
+    <main class="container">
+      <section class="panel">
+        <div id="status" class="muted">Loading...</div>
+      </section>
+
+      <section class="panel" id="detailsPanel" style="display:none;">
+        <h2 id="address">Address</h2>
+
+        <div class="kv">
+          <div><span class="k">Price:</span> <span id="price"></span></div>
+          <div><span class="k">Type:</span> <span id="type"></span></div>
+          <div><span class="k">Floor:</span> <span id="floor"></span></div>
+          <div><span class="k">Sqm:</span> <span id="sqm"></span></div>
+          <div><span class="k">Bedrooms:</span> <span id="bedrooms"></span></div>
+          <div><span class="k">Bathrooms:</span> <span id="bathrooms"></span></div>
+          <div><span class="k">Elevator:</span> <span id="elevator"></span></div>
+          <div><span class="k">Terrace:</span> <span id="terrace"></span></div>
+        </div>
+
+        <h3>Description</h3>
+        <pre id="description" class="description"></pre>
+      </section>
+    </main>
+
+    <script>
+      const API_BASE = "http://localhost:8000";
+
+      function el(id) {
+        return document.getElementById(id);
+      }
+
+      function formatPrice(value) {
+        if (value === null || value === undefined) return "N/A";
+        try {
+          return new Intl.NumberFormat("en-US").format(value) + " EUR";
+        } catch {
+          return String(value) + " EUR";
+        }
+      }
+
+      function formatBool(value) {
+        if (value === true) return "Yes";
+        if (value === false) return "No";
+        return "Unknown";
+      }
+
+      async function main() {
+        el("apiBaseText").textContent = API_BASE;
+
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id"); // returns a string or null [web:482]
+
+        const status = el("status");
+        const detailsPanel = el("detailsPanel");
+
+        if (!id) {
+          status.textContent = "Missing id. Open this page from the listings page.";
+          return;
+        }
+
+        try {
+          const res = await fetch(`${API_BASE}/listings/${encodeURIComponent(id)}`);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+          const item = await res.json();
+
+          // Fill UI
+          el("address").textContent =
+            item.main_property_location_city_zone_formatted_address || "Unknown address";
+
+          el("price").textContent = formatPrice(item.price_in_euro);
+          el("type").textContent = item.main_property_property_type || "N/A";
+          el("floor").textContent = item.main_property_floor ?? "N/A";
+          el("sqm").textContent = item.main_property_property_square ?? "N/A";
+          el("bedrooms").textContent = item.main_property_property_composition_bedrooms ?? "N/A";
+          el("bathrooms").textContent = item.main_property_property_composition_bathrooms ?? "N/A";
+          el("elevator").textContent = formatBool(item.main_property_has_elevator);
+          el("terrace").textContent = formatBool(item.main_property_has_terrace);
+
+          el("description").textContent =
+            item.main_property_description_text_content_original_text || "(No description)";
+
+          status.textContent = "";
+          detailsPanel.style.display = "block";
+        } catch (err) {
+          status.textContent = `Error loading listing ${id}. Is the API running?`;
+          console.error(err);
+        }
+      }
+
+      main();
+    </script>
+  </body>
+</html>
