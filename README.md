@@ -52,7 +52,7 @@ curl "http://localhost:8000/listings?limit=3"
 ```
 
 ### Run the starter web (Terminal 2)
-Serve the static files locally (don’t open with `file://`). [web:556]  
+Serve the static files locally (don’t open with `file://`). 
 ```bash
 cd starter/web
 python3 -m http.server 5500

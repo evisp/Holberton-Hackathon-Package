@@ -28,7 +28,7 @@ You are not building a “prediction page”; you are building a simple product 
 4) Comparable properties (comps)  
 - For each listing, show 5 comparable listings selected by similarity (nearby location + similar size/rooms).  
 - Display their prices and why they are “similar” (at least distance and one other reason).  
-Comparable properties (“comps”) are a common real-estate way to support/justify a valuation. [web:62]
+Comparable properties (“comps”) are a common real-estate way to support/justify a valuation. 
 
 ## Bonus requirements (pick up to 3)
 - Overpriced / Fair / Underpriced label (based on listing price vs predicted range or comps).  
@@ -48,7 +48,7 @@ Comparable properties (“comps”) are a common real-estate way to support/just
 - A short demo (2–3 minutes): browse → open listing → show estimate + range → show comps.
 
 ## Evaluation (how you’ll be judged)
-- A working MVP that matches the requirements matters most. [web:95]
+- A working MVP that matches the requirements matters most. 
 - Clear UX: easy to understand, not cluttered.
 - ML is integrated into the product (estimate + evidence), not isolated.
 - Code clarity: readable, reasonable structure, runs without surprises.
